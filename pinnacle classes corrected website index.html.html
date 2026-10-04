@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6246ea" />
+  <title>Pinnacle Classes — Fee Manager</title>
+  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="enhancements.css?v=1" />
+</head>
+<body>
+  <div class="app-shell" id="appShell" hidden>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#dashboard" aria-label="Pinnacle Classes home"><span class="brand-mark pinnacle-logo" aria-hidden="true"><svg viewBox="0 0 40 40" focusable="false"><path d="M8 31V8h12.5c6.1 0 10 3.1 10 8.2 0 5.3-3.9 8.4-10 8.4h-5.1V31H8Zm7.4-12.5h4.1c2.3 0 3.6-1.1 3.6-2.9 0-1.7-1.3-2.8-3.6-2.8h-4.1v5.7Z"/><path class="logo-star" d="m30.5 5 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg></span><span>Pinnacle <em>Classes</em><small>FEE MANAGER</small></span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-view="dashboard" type="button"><span>▦</span> Overview</button>
+        <button class="nav-link" data-view="batches" type="button"><span>▱</span> Batches</button>
+        <button class="nav-link" data-view="students" type="button"><span>♙</span> All students</button>
+        <button class="nav-link" data-view="settings" type="button"><span>⚙</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="sync-card"><span>☁</span><div><b>Account sync active</b><small>Continue from any device.</small></div></div>
+        <button class="account-button" id="openSettings" type="button"><span class="avatar" id="accountInitial">P</span><span><b id="accountEmail">Your account</b><small>Open settings</small></span><i>›</i></button>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar"><button class="menu-button" id="menuButton" type="button" aria-label="Open menu">☰</button><div><p class="eyebrow">PINNACLE CLASSES</p><h1 id="pageTitle">Overview</h1></div><div class="top-actions"><button class="settings-round" id="topSettings" type="button" aria-label="Settings">⚙</button><button class="primary-button" id="openAddStudent" type="button">＋ Add student</button></div></header>
+
+      <section class="view" id="dashboardView">
+        <div class="month-controls"><button id="previousMonth" type="button">‹</button><div><strong id="monthLabel">This month</strong><small>Fee collection month</small></div><button id="nextMonth" type="button">›</button></div>
+        <section class="stats-grid" aria-label="Monthly summary">
+          <button class="stat-card students dashboard-folder" data-dashboard-filter="all"><span class="stat-icon">♙</span><p>Total students</p><h2 id="studentCount">0</h2><small id="studentCountNote">View all student details</small></button>
+          <button class="stat-card total dashboard-folder" data-view="batches"><span class="stat-icon">▱</span><p>Total batches</p><h2 id="batchCount">0</h2><small>Open batch folders</small></button>
+          <button class="stat-card paid dashboard-folder" data-dashboard-filter="paid"><span class="stat-icon">✓</span><p>Total paid fee</p><h2 id="paidTotal">₹0</h2><small id="paidCount">View paid students</small></button>
+          <button class="stat-card pending dashboard-folder" data-dashboard-filter="pending"><span class="stat-icon">◷</span><p>Total pending fee</p><h2 id="dueTotal">₹0</h2><small id="dueCount">View pending students</small></button>
+        </section>
+        <section class="collection-layout">
+          <article class="collection-card"><div class="section-title"><div><p class="eyebrow">THIS MONTH'S PROGRESS</p><h2>Collection status</h2></div><b id="collectionPercent">0%</b></div><div class="progress-track"><i id="collectionBar"></i></div><div class="collection-info"><span><i class="dot paid-dot"></i> Paid <b id="collectionPaid">₹0</b></span><span><i class="dot pending-dot"></i> Pending <b id="collectionPending">₹0</b></span></div></article>
+          <article class="welcome-banner"><div><p>PINNACLE CLASSES</p><h2>Every fee.<br><em>Beautifully organised.</em></h2><span id="bannerMessage">Your records are securely available on every device.</span></div><div class="banner-art"><i></i><b>₹</b></div></article>
+        </section>
+        <section class="students-panel"><div class="section-title"><div><p class="eyebrow">YOUR CLASS</p><h2>All students</h2></div><button class="text-button" id="viewAllStudents" type="button">View all students →</button></div><div class="student-list" id="dashboardStudentList"></div><div class="empty-state" id="dashboardEmpty" hidden><span>♙</span><h3>No students yet</h3><p>Add your first student to begin tracking fees.</p><button class="primary-button" id="emptyAddStudent" type="button">Add student</button></div></section>
+      </section>
+
+      <section class="view" id="studentsView" hidden><div class="view-heading"><div><p class="eyebrow">YOUR CLASS</p><h2 id="studentsHeading">All students</h2></div><label class="search"><span>⌕</span><input id="studentSearch" type="search" placeholder="Search student" /></label></div><div class="student-list full" id="allStudentList"></div><div class="empty-state" id="allStudentsEmpty" hidden><span>♙</span><h3>No matching students</h3><p>Try another search, or add a new student.</p></div></section>
+      <section class="view" id="batchesView" hidden><div class="view-heading"><div><p class="eyebrow">ACADEMIC</p><h2>Batch folders</h2></div><button class="primary-button" id="openAddBatch" type="button">＋ Add batch</button></div><div class="batch-grid" id="batchList"></div><div class="empty-state" id="batchesEmpty" hidden><span>▱</span><h3>No batches yet</h3><p>Create a batch, then assign it while adding a student.</p><button class="primary-button" id="emptyAddBatch" type="button">Add batch</button></div></section>
+      <section class="view" id="batchDetailView" hidden><button class="back-button" id="backToBatches" type="button">← Back to batches</button><div id="batchDetail"></div></section>
+      <section class="view" id="detailView" hidden><button class="back-button" id="backToStudents" type="button">← Back to students</button><div id="studentDetail"></div></section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="studentModal" hidden><form class="modal" id="studentForm"><div class="modal-header"><div><p class="eyebrow">NEW ADMISSION</p><h2>Add student</h2></div><button class="close" data-close="studentModal" type="button">×</button></div><div class="form-grid"><label>Student name<input name="name" required placeholder="Student name" /></label><label>Admission date<input name="admissionDate" type="date" required /></label><label class="wide-label">Assign batch(es)<select name="batchIds" id="studentBatches" multiple required></select><small class="field-help">Hold Ctrl / Cmd to select more than one batch.</small></label><label>Monthly fee<input name="fee" type="number" min="1" required placeholder="1800" /></label></div><p class="form-label">Parent details <small>(optional)</small></p><div class="form-grid"><label>Parent name<input name="parentName" placeholder="Parent name" /></label><label>Phone number<input name="phone" type="tel" placeholder="Mobile number" /></label></div><label>Address<textarea name="address" placeholder="House no., area, city"></textarea></label><div class="modal-actions"><button class="secondary-button" data-close="studentModal" type="button">Cancel</button><button class="primary-button" type="submit">Add student</button></div></form></div>
+  <div class="modal-backdrop" id="batchModal" hidden><form class="modal small-modal" id="batchForm"><div class="modal-header"><div><p class="eyebrow">ACADEMIC</p><h2>Add batch</h2></div><button class="close" data-close="batchModal" type="button">×</button></div><label>Batch name<input name="name" required placeholder="e.g. Class 10 Maths" /></label><label>Subject / description<input name="description" placeholder="e.g. Maths · Evening" /></label><div class="modal-actions"><button class="secondary-button" data-close="batchModal" type="button">Cancel</button><button class="primary-button" type="submit">Create batch</button></div></form></div>
+  <div class="modal-backdrop" id="paymentModal" hidden><form class="modal small-modal" id="paymentForm"><div class="modal-header"><div><p class="eyebrow">MONTHLY FEE</p><h2 id="paymentTitle">Record payment</h2></div><button class="close" data-close="paymentModal" type="button">×</button></div><p class="payment-note" id="paymentNote"></p><label>Fee month<input id="paymentMonth" name="paymentMonth" type="month" required /></label><label>Deposit date<input id="paymentDate" name="paymentDate" type="date" required /></label><label>Amount received<input id="paymentAmount" name="paymentAmount" type="number" min="1" required /></label><div class="modal-actions"><button class="secondary-button" data-close="paymentModal" type="button">Cancel</button><button class="primary-button" type="submit">Save payment</button></div></form></div>
+  <div class="modal-backdrop" id="settingsModal" hidden><section class="modal settings-modal"><div class="modal-header"><div><p class="eyebrow">PERSONALISE YOUR PORTAL</p><h2>Settings</h2></div><button class="close" data-close="settingsModal" type="button">×</button></div><section class="setting-section"><h3>Appearance</h3><p>Choose how your fee manager looks on this device.</p><div class="setting-row"><span>Display mode</span><div class="segmented"><button data-mode="light" type="button">☀ Light</button><button data-mode="dark" type="button">☾ Dark</button></div></div><div class="theme-options"><button data-theme="violet" type="button"><i></i> Violet</button><button data-theme="ocean" type="button"><i></i> Ocean</button><button data-theme="rose" type="button"><i></i> Rose</button></div></section><section class="setting-section account-settings"><h3>Account</h3><p id="settingsEmail">Not logged in</p><button class="logout-setting" id="logoutButton" type="button">Log out</button></section></section></div>
+  <div class="modal-backdrop auth-backdrop" id="authModal"><form class="modal auth-modal" id="authForm"><div class="auth-brand"><span class="brand-mark">P</span><strong>Pinnacle <em>Classes</em></strong></div><p class="eyebrow" id="authKicker">WELCOME BACK</p><h2 id="authTitle">Log in to continue</h2><p class="auth-copy" id="authCopy">Enter your account name and both passwords to access your saved records.</p><p class="auth-error" id="authError" hidden></p><label>Your name<input id="authName" type="text" required minlength="3" maxlength="50" autocomplete="username" placeholder="Your full name" /></label><label>First strong password<input id="authPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters" /></label><label>Second strong password<input id="authPasswordTwo" type="password" required minlength="8" autocomplete="new-password" placeholder="A different strong password" /></label><button class="primary-button auth-submit" id="authSubmit" type="submit">Log in</button><p class="auth-switch"><span id="authSwitchText">New here?</span> <button id="switchAuth" type="button">Create an account</button></p></form></div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
